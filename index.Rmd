@@ -3,7 +3,7 @@ title: "Tablero Estadísticas Policiales Shiny"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
-    theme: sandstone
+    theme: united
     social: menu
     source_code: embed
 runtime: shiny    
@@ -414,7 +414,7 @@ Cantidad_de_delito_por_tipo <-
   delitos %>%
   count(Delito) %>%
   ggplot(aes(x = reorder(Delito, n), y = n)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill = "hotpink3") +
   ggtitle("Cantidad de Delitos por tipo de Delito") +
   xlab("Tipo de Delito") +
   ylab("Cantidad") +
@@ -437,7 +437,7 @@ Cantidad_de_delito_por_victima <-
   delitos %>%
   count(Victima) %>%
   ggplot(aes(x = reorder(Victima, -n), y = n)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill = "hotpink3") +
   ggtitle("Cantidad de Delitos por tipo de Víctima") +
   xlab("Tipo de Víctima") +
   ylab("Cantidad") +
@@ -461,7 +461,7 @@ renderPlotly({
 Proporcion_de_Genero_por_Delito <-
   delitos %>%
   ggplot(aes(x = Delito, fill = Genero)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "fill",) +
   ggtitle("Proporciones de Género por tipo de Delito") +
   xlab("Delito") +
   ylab("Proporción") +
@@ -482,7 +482,7 @@ renderPlotly({
 delitos$Mes <- month(delitos$Fecha, label = TRUE, abbr = FALSE)
 Cantidad_Delitos_Mes <-
   ggplot(data= delitos, aes(x = Mes)) +
-  geom_bar( ) +
+  geom_bar(, fill = "hotpink3") +
   ggtitle("Cantidad de Delitos en el 2021 (Mesuales)") +
   xlab("Meses") +
   ylab("Cantidad de Delitos") +
