@@ -200,7 +200,7 @@ Row {data-height=6}
 ### **Fuente de los datos: [Instituto Geográfico Nacional (IGN)](https://www.snitcr.go.cr/ico_servicios_ogc_info?k=bm9kbzo6MjY=&nombre=IGN%20Cartograf%C3%ADa%201:5mil)**
 ### **Fuente de los datos: [Organismo de Investigación Juficial (OIJ)](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos)**
 
-Column {data-height=62.sidebar}
+Column {.sidebar}
 -------------------------------------
 
 ```{r filtros}
@@ -276,10 +276,10 @@ filtrarDelitos <- reactive({
 })
 ```
 
-Column {data-width=590}
------------------------------------------------------------------------
+Column 
+-------------------------------------
 
-### Mapa
+### Mapa {data-width=350}
 
 ```{r}
 
@@ -360,7 +360,7 @@ leaflet() %>%
 })
 ```
 
-### Tabla 
+### Tabla {data-width=650}
 
 ```{r Tabla}
 
@@ -379,7 +379,7 @@ delitos %>%
   mutate(Fecha = as.Date(Fecha, format = "%d/%m/%Y")) %>%
   datatable(
     options = list(
-      pageLength = 15,
+      pageLength = 5,
       language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
     ),
     colnames = c(
