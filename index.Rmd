@@ -194,14 +194,20 @@ lista_Edad <- c("Todas", lista_Edad)
 Mapa y Tabla
 =======================================================================
 
-Column {.sidebar}
+Row {data-height=6}
+-----------------------------------------------------------------------
+
+### **Fuente de los datos: [Instituto Geográfico Nacional (IGN)](https://www.snitcr.go.cr/ico_servicios_ogc_info?k=bm9kbzo6MjY=&nombre=IGN%20Cartograf%C3%ADa%201:5mil)**
+### **Fuente de los datos: [Organismo de Investigación Juficial (OIJ)](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos)**
+
+Column {data-height=62.sidebar}
 -------------------------------------
 
 ```{r filtros}
 # Filtros de datos
 
 # Encabezado de la columna
-h3("Filtros de datos")
+h3("Filtros de datos:")  
 
 # Tipo de Delito
 selectInput(
@@ -209,7 +215,7 @@ selectInput(
   label = "Delito",
   choices = lista_Delito,
   selected = "Todas"
-)
+)  
 
 # Tipo de Víctima
 selectInput(
@@ -217,7 +223,7 @@ selectInput(
   label = "Víctima",
   choices = lista_Victima,
   selected = "Todas"
-)
+)  
 
 # Tipo de Género
 selectInput(
@@ -225,7 +231,7 @@ selectInput(
   label = "Género",
   choices = lista_Genero,
   selected = "Todas"
-)
+)  
 
 # Tipo Edad
 selectInput(
@@ -233,7 +239,7 @@ selectInput(
   label = "Edad",
   choices = lista_Edad,
   selected = "Todas"
-)
+)  
 
 
 # Función para filtrar los datos con base en los controles de entrada
@@ -270,12 +276,6 @@ filtrarDelitos <- reactive({
 })
 ```
 
-Row {data-height=10}
------------------------------------------------------------------------
-
-### **Fuente de los datos: [Instituto Geográfico Nacional (IGN)](https://www.snitcr.go.cr/ico_servicios_ogc_info?k=bm9kbzo6MjY=&nombre=IGN%20Cartograf%C3%ADa%201:5mil)**
-### **Fuente de los datos: [Organismo de Investigación Juficial (OIJ)](https://sitiooij.poder-judicial.go.cr/index.php/ayuda/servicios-policiales/servicios-a-organizaciones/indice-de-transparencia-del-sector-publico-costarricense/datos-abiertos)**
-
 Column {data-width=590}
 -----------------------------------------------------------------------
 
@@ -285,7 +285,7 @@ Column {data-width=590}
 
 # Paleta de colores para los mapas
 colores_distritos_delitos <-
-  colorNumeric(palette = "Reds",
+  colorNumeric(palette = "Set2",
                domain = distritos_delitos$delitos,
                na.color = "transparent")
 
@@ -313,7 +313,7 @@ leaflet() %>%
   setView(# centro y nivel inicial de acercamiento
     lng = -84.19452,
     lat = 9.572735,
-    zoom = 7) %>%
+    zoom = 7,2) %>%
   addTiles(group = "OpenStreetMap") %>% # capa base
   addPolygons(
     # capa de polígonos
@@ -325,23 +325,23 @@ leaflet() %>%
     weight = 1.0,
     popup = paste(
       paste(
-        "<strong>Provincia:</strong>",
+        "Provincia:",
         distritos_delitos$provincia
-      ),
+      ), 
       paste(
-        "<strong>Cantón:</strong>",
+        "Cantón:",
         distritos_delitos$canton
-      ),
+      ), 
       paste(
-        "<strong>Distrito:</strong>",
+        "Distrito:",
         distritos_delitos$distrito
-      ),
+      ), 
       paste(
-        "<strong>Delitos:</strong>",
+        "Delitos:",
         distritos_delitos$delitos
-      ),
-      sep = '<br/>'
-    ),
+      ), 
+      sep = "<br>"
+    ), 
     group = "Delitos en distritos"
   ) %>%
   addLayersControl(
@@ -514,4 +514,3 @@ Proporcion_de_Edad_por_Delito <-
 ggplotly(Proporcion_de_Edad_por_Delito) %>% config(locale = 'es')
 })
 ```
-
