@@ -3,7 +3,7 @@ title: "Tablero Estadísticas Policiales Shiny"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
-    theme: united
+    theme: sandstone
     social: menu
     source_code: embed
 runtime: shiny    
@@ -414,7 +414,7 @@ Cantidad_de_delito_por_tipo <-
   delitos %>%
   count(Delito) %>%
   ggplot(aes(x = reorder(Delito, n), y = n)) +
-  geom_bar(stat = "identity", fill = "hotpink3") +
+  geom_bar(stat = "identity", fill = "aquamarine3") +
   ggtitle("Cantidad de Delitos por tipo de Delito") +
   xlab("Tipo de Delito") +
   ylab("Cantidad") +
@@ -437,7 +437,7 @@ Cantidad_de_delito_por_victima <-
   delitos %>%
   count(Victima) %>%
   ggplot(aes(x = reorder(Victima, -n), y = n)) +
-  geom_bar(stat = "identity", fill = "hotpink3") +
+  geom_bar(stat = "identity", fill = "cadetblue3") +
   ggtitle("Cantidad de Delitos por tipo de Víctima") +
   xlab("Tipo de Víctima") +
   ylab("Cantidad") +
@@ -462,7 +462,7 @@ Proporcion_de_Genero_por_Delito <-
   delitos %>%
   ggplot(aes(x = Delito, fill = Genero)) +
   geom_bar(position = "fill",) +
-  ggtitle("Proporciones de Género por tipo de Delito") +
+  ggtitle("Proporciones de Género") +
   xlab("Delito") +
   ylab("Proporción") +
   labs(fill = "Género") +
@@ -479,18 +479,15 @@ ggplotly(Proporcion_de_Genero_por_Delito) %>% config(locale = 'es')
 renderPlotly({
   delitos <- filtrarDelitos()
   
-delitos$Mes <- month(delitos$Fecha, label = TRUE, abbr = FALSE)
+delitos$Mes <- month(delitos$Fecha, label = TRUE)
 Cantidad_Delitos_Mes <-
   ggplot(data= delitos, aes(x = Mes)) +
-  geom_bar(, fill = "hotpink3") +
+  geom_bar(, fill = "chartreuse3") +
   ggtitle("Cantidad de Delitos en el 2021 (Mesuales)") +
   xlab("Meses") +
   ylab("Cantidad de Delitos") +
   theme_hc()
-# Gráfico plotly
-Cantidad_Delitos_Mes %>%
-  ggplotly() %>% 
-  config(locale = 'es')
+ggplotly(Cantidad_Delitos_Mes) %>% config(locale = 'es')
 })
 ```
 
@@ -505,7 +502,7 @@ Proporcion_de_Edad_por_Delito <-
   delitos %>%
   ggplot(aes(x = Delito, fill = Edad)) +
   geom_bar(position = "fill") +
-  ggtitle("Proporciones de Edad por tipo de Delito") +
+  ggtitle("Proporciones de Edad") +
   xlab("Delito") +
   ylab("Proporción") +
   labs(fill = "Edad") +
